@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+ol {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+ol img {
+    width: 100px;
+    height: auto;
+    margin: 5px;
+}
+
+    </style>
+<head>
+    <title>brawl box opener</title>
+ 
+</head>
+<body>
+    <center>
+        <h1>brawl box open simulator</h1>
+        <img src="megabox.jpg" >
+    <button id="probabilityButton">Click to open box</button>
+    </center>
+    <ol id="resultsList"></ol>
+    
+    <script src="script.js"></script>
+</body>
+<script>
+   // Define the array of probabilities and corresponding images
+const probabilities = [
+    { image: 'coins.jpg', probability: 0.7 },
+    { image: '', probability: 0.01 },
+    { image: 'leon.jpg', probability: 0.002 },
+    { image: '', probability: 0.003 },
+    { image: '', probability: 0.005 },
+    { image: '', probability: 0.01 },
+    { image: '', probability: 0.17 },
+    { image: '', probability: 0.1 },
+];
+
+// Function to randomly select an image based on probabilities
+function selectImage() {
+    const random = Math.random();
+    let cumulativeProbability = 0;
+
+    for (let i = 0; i < probabilities.length; i++) {
+        cumulativeProbability += probabilities[i].probability;
+        if (random < cumulativeProbability) {
+            return probabilities[i].image;
+        }
+    }
+}
+
+// Function to handle button click
+document.getElementById('probabilityButton').addEventListener('click', function() {
+    const selectedImage = selectImage();
+    const resultsList = document.getElementById('resultsList');
+    const li = document.createElement('li');
+    const img = document.createElement('img');
+    img.src = selectedImage;
+    li.appendChild(img);
+    resultsList.appendChild(li);
+
+    // Show alert with selected image (you can modify this as needed)
+    alert(`You rolled: ${selectedImage}`);
+});
+ 
+</script>
+</html>
